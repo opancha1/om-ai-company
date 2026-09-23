@@ -65,7 +65,34 @@ function buildOffice(){
       <path d="M${x+30} ${y+55}h10M${x+30} ${y+59}h7" stroke="${p.accent}" stroke-width="1"/>
     </g>`;
   }).join('');
-  $('#officeMap').innerHTML=`<svg class="office-svg" viewBox="0 0 1000 700" preserveAspectRatio="none" role="img" aria-label="Detailed Om AI Company pixel-art office">
+    const decor=`
+    <g pointer-events="none">
+      ${[95,125,155,185,215,245,275,305,335,365,395,425,455,485,515,545,575,605,635,665,695,725,755,785,815,845,875,905,935].map((x,i)=>`<rect x="${x}" y="238" width="2" height="3" fill="#e6c56e" opacity=".8"/>`).join('')}
+      ${[[300,275],[580,275],[820,275],[300,395],[580,395],[820,395],[300,505],[580,505],[820,505],[300,625],[580,625],[820,625]].map(([x,y])=>`<g><rect x="${x-2}" y="${y-18}" width="4" height="18" fill="#7d6348"/><circle cx="${x}" cy="${y}" r="10" fill="#ffd878" opacity=".14"/><rect x="${x-7}" y="${y}" width="14" height="4" rx="2" fill="#ffd878"/></g>`).join('')}
+      ${plant(285,270,.7)}${plant(600,270,.7)}${plant(945,270,.7)}
+      ${plant(285,390,.85)}${plant(600,390,.7)}${plant(945,390,.85)}
+      ${plant(285,505,.75)}${plant(600,505,.9)}${plant(945,505,.7)}
+      ${plant(285,635,.85)}${plant(600,635,.8)}${plant(945,635,.9)}
+      <rect x="810" y="430" width="92" height="15" rx="7" fill="#354d5b" stroke="#8c9692" stroke-width="2"/>
+      <rect x="820" y="415" width="72" height="19" rx="8" fill="#405b69"/>
+      <rect x="830" y="455" width="52" height="10" rx="3" fill="#a96d40"/><circle cx="856" cy="450" r="7" fill="#c6ae83"/>
+      <rect x="845" y="466" width="22" height="4" fill="#4c3931"/>
+      <rect x="695" y="525" width="90" height="58" fill="#e5d5ad" stroke="#9b7648" stroke-width="3"/>
+      <rect x="704" y="534" width="72" height="40" fill="#8bb4c0"/>
+      <path d="M708 564l18-20 13 13 10-9 23 16" fill="#739b72"/>
+      <text x="740" y="591" text-anchor="middle" class="zone-sub">BETTER SOFTWARE</text>
+      <rect x="884" y="610" width="60" height="34" rx="8" fill="#20384a" stroke="#8a9894" stroke-width="2"/>
+      <rect x="900" y="590" width="28" height="22" fill="#4a6877" stroke="#9ba8a5" stroke-width="2"/>
+      <path d="M914 589 C906 578 922 570 914 559 C906 571 922 578 914 589" fill="none" stroke="#5ce0ff" stroke-width="4"/>
+      <circle cx="914" cy="600" r="27" fill="#56dfff" opacity=".08"/>
+      <rect x="38" y="245" width="18" height="100" fill="#1a2c38" stroke="#c39b5b" stroke-width="2"/>
+      <text x="47" y="270" text-anchor="middle" class="zone-sub" transform="rotate(-90 47 270)">GOOD IDEAS</text>
+      <rect x="950" y="250" width="18" height="150" fill="#1a2c38" stroke="#c39b5b" stroke-width="2"/>
+      <text x="959" y="330" text-anchor="middle" class="zone-sub" transform="rotate(90 959 330)">BIG RESULTS</text>
+      <path d="M275 675H955" stroke="#1c2a30" stroke-width="16" opacity=".75"/>
+      <path d="M275 675H955" stroke="#c6ad75" stroke-width="2" stroke-dasharray="2 12" opacity=".65"/>
+    </g>`;
+$('#officeMap').innerHTML=`<svg class="office-svg" viewBox="0 0 1000 700" preserveAspectRatio="none" role="img" aria-label="Detailed Om AI Company pixel-art office">
   <defs>
     <pattern id="floorTile" width="36" height="28" patternUnits="userSpaceOnUse"><rect width="36" height="28" fill="#3b4a4a"/><path d="M0 0H36M0 0V28" stroke="#56635e" opacity=".55"/><path d="M2 25H34" stroke="#293b40" opacity=".7"/></pattern>
     <linearGradient id="windowSky" x2="0" y2="1"><stop stop-color="#11263e"/><stop offset=".55" stop-color="#35647f"/><stop offset="1" stop-color="#718c93"/></linearGradient>
@@ -154,6 +181,7 @@ function buildOffice(){
     <text x="84" y="641" class="wall-script">Build</text><text x="84" y="654" class="wall-script">Automate</text><text x="84" y="667" class="wall-script">Create</text><text x="84" y="680" class="wall-script">Grow</text>
   </g>
 
+  ${decor}
   ${positions}
   <rect x="18" y="18" width="964" height="664" fill="none" stroke="#e2c27a" stroke-width="3" pointer-events="none"/>
   </svg>`;
