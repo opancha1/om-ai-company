@@ -2,15 +2,15 @@
 const $ = (s, root=document) => root.querySelector(s);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const crew = {
-  ava:{hair:'#4b3027',skin:'#efc69c',shirt:'#e1e4dc',accent:'#c3914d',role:'CEO Assistant',pos:[500,590]},
-  james:{hair:'#714a2f',skin:'#eac09b',shirt:'#4389a6',accent:'#edc15e',role:'Project Manager',pos:[620,420]},
-  alex:{hair:'#1b2331',skin:'#d89b72',shirt:'#3474b8',accent:'#63c8ed',role:'Software Engineer',pos:[205,425]},
-  mia:{hair:'#56322c',skin:'#f0c19d',shirt:'#825dc2',accent:'#d6a7ff',role:'UI/UX Designer',pos:[360,425]},
+  ava:{hair:'#4b3027',skin:'#efc69c',shirt:'#e1e4dc',accent:'#c3914d',role:'CEO Assistant',pos:[500,565]},
+  james:{hair:'#714a2f',skin:'#eac09b',shirt:'#4389a6',accent:'#edc15e',role:'Project Manager',pos:[650,440]},
+  alex:{hair:'#1b2331',skin:'#d89b72',shirt:'#3474b8',accent:'#63c8ed',role:'Software Engineer',pos:[200,440]},
+  mia:{hair:'#56322c',skin:'#f0c19d',shirt:'#825dc2',accent:'#d6a7ff',role:'UI/UX Designer',pos:[350,440]},
   noah:{hair:'#263440',skin:'#dab18e',shirt:'#4a8991',accent:'#b1e3d6',role:'Researcher',pos:[760,180]},
-  emma:{hair:'#704a2b',skin:'#f0c6a3',shirt:'#378c85',accent:'#f0ca68',role:'Data Analyst',pos:[205,560]},
-  sophia:{hair:'#51372f',skin:'#e9b798',shirt:'#bf5d76',accent:'#ffb0bd',role:'Marketing',pos:[500,560]},
-  olivia:{hair:'#252c3a',skin:'#efc4a3',shirt:'#b65b55',accent:'#ff9e78',role:'QA Engineer',pos:[205,650]},
-  liam:{hair:'#93643a',skin:'#e9bd99',shirt:'#6876ad',accent:'#99b4ff',role:'Finance',pos:[360,650]}
+  emma:{hair:'#704a2b',skin:'#f0c6a3',shirt:'#378c85',accent:'#f0ca68',role:'Data Analyst',pos:[880,180]},
+  sophia:{hair:'#51372f',skin:'#e9b798',shirt:'#bf5d76',accent:'#ffb0bd',role:'Marketing',pos:[500,440]},
+  olivia:{hair:'#252c3a',skin:'#efc4a3',shirt:'#b65b55',accent:'#ff9e78',role:'QA Engineer',pos:[200,565]},
+  liam:{hair:'#93643a',skin:'#e9bd99',shirt:'#6876ad',accent:'#99b4ff',role:'Finance',pos:[350,565]}
 };
 const state = {company:null,employees:[],projects:[],tasks:[],messages:[],activity:[],artifacts:[],meetings:[],tab:'Chat',busy:false,lastMessageCount:0,refreshing:false};
 let toastTimer;
