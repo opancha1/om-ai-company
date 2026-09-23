@@ -7,3 +7,41 @@
 @media(max-width:430px){.datebox{display:none}.brandmark{flex:1}.clockbox{padding:0 7px}.top-actions .icon-button:first-child{display:none}.workspace{padding:6px}.stage-column{height:540px;min-height:540px}.office-frame{min-height:315px}.ribbon-right{display:none}.office-legend{gap:8px;font-size:8px}.profile{margin-left:1px}.command-dock .dock-action{font-size:7px}.command-dock .dock-action span{display:none}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
 .office-svg .room-hit{cursor:pointer}.office-svg .room-hit:hover>rect:first-child{stroke:#fff0a4;filter:brightness(1.15)}.office-svg .room-hit:focus{outline:none}
+
+
+/* ===== Reference-grade 1536x1024 layout ===== */
+@media(min-width:1260px){
+  .shell{grid-template-columns:132px minmax(0,1fr);grid-template-rows:70px minmax(0,1fr) 76px}
+  .brandmark{width:290px}
+  .rail-nav{padding:12px 8px;gap:7px}
+  .rail-nav button{min-height:45px;font-size:11px}
+  .rail-nav button span{font-size:19px}
+  .workspace{padding:7px 7px 5px;grid-template-columns:minmax(0,1fr) 390px;gap:10px}
+  .office-title{height:42px;padding:0 4px 5px}
+  .office-title h1{font-size:20px}
+  .office-frame{border-radius:4px}
+  .office-ribbon{height:25px}
+  .employee-strip-head{height:38px}
+  .employee-strip{height:78px;grid-template-columns:repeat(9,minmax(0,1fr));gap:5px}
+  .employee-card{padding:6px;grid-template-columns:34px 1fr;grid-template-rows:1fr 16px}
+  .employee-meta b{font-size:9px}.employee-meta small{font-size:7px}.employee-activity{font-size:6.5px}
+  .control-column{gap:7px}
+  .right-tabs-card{min-height:0;flex:1 1 auto}
+  .goal-card{flex:0 0 125px}
+  .progress-card{flex:0 0 145px}
+  .approval-card{flex:0 0 52px}
+  .command-dock{padding:7px 8px;gap:7px}
+}
+@media(min-width:1450px){
+  .workspace{grid-template-columns:minmax(0,1fr) 397px}
+  .brandmark{width:290px}
+}
+.office-canvas{
+  background:
+    radial-gradient(circle at 52% 12%,rgba(255,214,117,.18),transparent 24%),
+    linear-gradient(180deg,#53615d 0,#43504e 48%,#303f42 100%);
+}
+.office-svg{image-rendering:pixelated;shape-rendering:crispEdges}
+.office-svg .room-label{font-size:12px;letter-spacing:1.8px;fill:#fff1ca;text-shadow:0 1px 2px #17252a}
+.office-svg .zone-sub{font-size:8px;fill:#c2d1cf}
+.office-svg .worker-name{font-size:9px}.office-svg .worker-role{font-size:7px}
