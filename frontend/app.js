@@ -2,15 +2,15 @@
 const $ = (s, root=document) => root.querySelector(s);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const crew = {
-  ava:{hair:'#4b3027',skin:'#efc69c',shirt:'#e1e4dc',accent:'#c3914d',role:'CEO Assistant',pos:[550,600]},
-  james:{hair:'#714a2f',skin:'#eac09b',shirt:'#4389a6',accent:'#edc15e',role:'Project Manager',pos:[750,475]},
-  alex:{hair:'#1b2331',skin:'#d89b72',shirt:'#3474b8',accent:'#63c8ed',role:'Software Engineer',pos:[350,300]},
-  mia:{hair:'#56322c',skin:'#f0c19d',shirt:'#825dc2',accent:'#d6a7ff',role:'UI/UX Designer',pos:[550,300]},
-  noah:{hair:'#263440',skin:'#dab18e',shirt:'#4a8991',accent:'#b1e3d6',role:'Researcher',pos:[750,300]},
-  emma:{hair:'#704a2b',skin:'#f0c6a3',shirt:'#378c85',accent:'#f0ca68',role:'Data Analyst',pos:[350,475]},
-  sophia:{hair:'#51372f',skin:'#e9b798',shirt:'#bf5d76',accent:'#ffb0bd',role:'Marketing',pos:[550,475]},
-  olivia:{hair:'#252c3a',skin:'#efc4a3',shirt:'#b65b55',accent:'#ff9e78',role:'QA Engineer',pos:[350,600]},
-  liam:{hair:'#93643a',skin:'#e9bd99',shirt:'#6876ad',accent:'#99b4ff',role:'Finance',pos:[750,600]}
+  ava:{hair:'#4b3027',skin:'#efc69c',shirt:'#e1e4dc',accent:'#c3914d',role:'CEO Assistant',pos:[500,590]},
+  james:{hair:'#714a2f',skin:'#eac09b',shirt:'#4389a6',accent:'#edc15e',role:'Project Manager',pos:[620,420]},
+  alex:{hair:'#1b2331',skin:'#d89b72',shirt:'#3474b8',accent:'#63c8ed',role:'Software Engineer',pos:[205,425]},
+  mia:{hair:'#56322c',skin:'#f0c19d',shirt:'#825dc2',accent:'#d6a7ff',role:'UI/UX Designer',pos:[360,425]},
+  noah:{hair:'#263440',skin:'#dab18e',shirt:'#4a8991',accent:'#b1e3d6',role:'Researcher',pos:[760,180]},
+  emma:{hair:'#704a2b',skin:'#f0c6a3',shirt:'#378c85',accent:'#f0ca68',role:'Data Analyst',pos:[205,560]},
+  sophia:{hair:'#51372f',skin:'#e9b798',shirt:'#bf5d76',accent:'#ffb0bd',role:'Marketing',pos:[500,560]},
+  olivia:{hair:'#252c3a',skin:'#efc4a3',shirt:'#b65b55',accent:'#ff9e78',role:'QA Engineer',pos:[205,650]},
+  liam:{hair:'#93643a',skin:'#e9bd99',shirt:'#6876ad',accent:'#99b4ff',role:'Finance',pos:[360,650]}
 };
 const state = {company:null,employees:[],projects:[],tasks:[],messages:[],activity:[],artifacts:[],meetings:[],tab:'Chat',busy:false,lastMessageCount:0,refreshing:false};
 let toastTimer;
@@ -43,8 +43,7 @@ function spriteAt(employee, x, y, compact=false){
     <rect x="${x-42}" y="${y+45}" width="84" height="31" rx="4" fill="#0a1c2b" stroke="#638093" stroke-width="1.2"/><circle cx="${x-32}" cy="${y+56}" r="3.4" fill="${c}"/><text x="${x-24}" y="${y+58}" class="worker-name">${esc(label)}</text><text x="${x-32}" y="${y+70}" class="worker-role">${esc(shortRole)}</text>${!compact&&status==='Working'?`<text x="${x+35}" y="${y+70}" text-anchor="end" class="worker-state" fill="${c}">ACTIVE</text>`:''}
   </g>`;
 }
-function plant(x,y,s=1){return `<g transform="translate(${x} ${y}) scale(${s})" shape-rendering="crispEdges"><rect x="-9" y="0" width="18" height="13" fill="#a7663d" stroke="#d39b60"/><rect x="-6" y="-11" width="4" height="12" fill="#3d8c57"/><rect x="1" y="-17" width="4" height="18" fill="#4b9a5b"/><rect x="-13" y="-15" width="8" height="4" fill="#57a65d"/><rect x="4" y="-24" width="9" height="4" fill="#5cae62"/><rect x="-5" y="-29" width="10" height="4" fill="#4e9b58"/><rect x="-17" y="-8" width="5" height="4" fill="#68b969"/><rect x="11" y="-11" width="6" height="4" fill="#5aa959"/><rect x="-2" y="-7" width="8" height="3" fill="#83cb75"/></g>`;}
-
+function plant(x,y,s=1){return `<g transform="translate(${x} ${y}) scale(${s})" shape-rendering="crispEdges"><rect x="-12" y="0" width="24" height="15" rx="2" fill="#a8663d" stroke="#e1ad67" stroke-width="1.5"/><rect x="-7" y="-12" width="4" height="13" fill="#3c8b52"/><rect x="2" y="-20" width="5" height="21" fill="#4a9b59"/><rect x="-15" y="-16" width="9" height="5" fill="#55aa60"/><rect x="5" y="-28" width="10" height="5" fill="#5eaf63"/><rect x="-4" y="-33" width="11" height="5" fill="#4e9b58"/><rect x="-20" y="-8" width="6" height="5" fill="#65b86a"/><rect x="12" y="-13" width="7" height="5" fill="#5aa45c"/><rect x="-2" y="-8" width="9" height="4" fill="#83cb75"/></g>`;}\n
 function buildOffice(){
   const employees=state.employees||[];
   const positions=employees.map(e=>spriteAt(e,...(palette(e).pos||[500,400]))).join('');
