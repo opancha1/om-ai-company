@@ -44,28 +44,128 @@ function spriteAt(employee, x, y, compact=false){
   </g>`;
 }
 function plant(x,y,s=1){return `<g transform="translate(${x} ${y}) scale(${s})" shape-rendering="crispEdges"><rect x="-9" y="0" width="18" height="13" fill="#a7663d" stroke="#d39b60"/><rect x="-6" y="-11" width="4" height="12" fill="#3d8c57"/><rect x="1" y="-17" width="4" height="18" fill="#4b9a5b"/><rect x="-13" y="-15" width="8" height="4" fill="#57a65d"/><rect x="4" y="-24" width="9" height="4" fill="#5cae62"/><rect x="-5" y="-29" width="10" height="4" fill="#4e9b58"/><rect x="-17" y="-8" width="5" height="4" fill="#68b969"/><rect x="11" y="-11" width="6" height="4" fill="#5aa959"/><rect x="-2" y="-7" width="8" height="3" fill="#83cb75"/></g>`;}
+
 function buildOffice(){
-  const statusText=state.company?.name||'Om AI Company';
-  const windows=Array.from({length:8},(_,i)=>`<rect x="${325+i*47}" y="38" width="3" height="116" fill="#d7bd81" opacity=".7"/>`).join('');
-  const buildings=[0,1,2,3,4,5,6,7,8,9].map((_,i)=>{const x=334+i*51,h=27+(i*17%69);return `<rect x="${x}" y="${155-h}" width="38" height="${h}" fill="${i%2?'#203c56':'#294c68'}"/><g fill="#91c9d6" opacity=".6">${[0,1,2].map(r=>`<rect x="${x+6}" y="${157-h+r*12}" width="4" height="4"/><rect x="${x+18}" y="${157-h+r*12}" width="4" height="4"/><rect x="${x+30}" y="${157-h+r*12}" width="4" height="4"/>`).join('')}</g>`}).join('');
-  const positions=state.employees.map(e=>spriteAt(e,...(palette(e).pos||[500,400]))).join('');
-  $('#officeMap').innerHTML=`<svg class="office-svg" viewBox="0 0 1000 700" preserveAspectRatio="none" role="img" aria-label="Pixel-art office with employee desks"><defs><pattern id="floorTile" width="42" height="30" patternUnits="userSpaceOnUse"><rect width="42" height="30" fill="#39484a"/><path d="M0 0H42M0 0V30" stroke="#50605c" stroke-width="1" opacity=".6"/><path d="M1 28H40" stroke="#293b40" opacity=".5"/></pattern><linearGradient id="nightWindow" x2="0" y2="1"><stop stop-color="#172944"/><stop offset="1" stop-color="#396787"/></linearGradient><linearGradient id="roomGlow" x2="0" y2="1"><stop stop-color="#e4bb72" stop-opacity=".17"/><stop offset="1" stop-color="#e4bb72" stop-opacity="0"/></linearGradient><filter id="warmGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="8"/></filter></defs>
-    <rect width="1000" height="700" fill="url(#floorTile)"/><path d="M0 0H1000V19H0zM0 0V700H18V0M982 0H1000V700H982z" fill="#b99b68"/><path d="M16 17H984V28H16z" fill="#e0c182"/>
-    <!-- Window wall and city --> <rect x="314" y="32" width="421" height="128" fill="#102b3e" stroke="#c6a56a" stroke-width="7"/><rect x="322" y="39" width="405" height="114" fill="url(#nightWindow)"/>${buildings}${windows}<path d="M322 155H727" stroke="#e7c37a" stroke-width="5"/><rect x="322" y="40" width="405" height="113" fill="url(#roomGlow)"/>
-    <!-- Meeting room --> <g class="room-hit" data-room="meeting" tabindex="0" role="button" aria-label="Open company calendar"><rect x="24" y="33" width="270" height="205" fill="#63462f" stroke="#e4bb70" stroke-width="5"/><rect x="32" y="42" width="254" height="187" fill="#263944" stroke="#8da0a1" stroke-width="3"/><path d="M32 61H286M160 42V229" stroke="#819ba5" stroke-width="3" opacity=".65"/><rect x="70" y="72" width="175" height="101" rx="3" fill="#162733" stroke="#d2ad6b" stroke-width="5"/><rect x="78" y="80" width="159" height="85" fill="#1b5a81"/><text x="157" y="108" text-anchor="middle" class="room-label">MEETING ROOM</text><text x="157" y="129" text-anchor="middle" class="zone-sub">TEAMWORK BUILDS THE FUTURE</text><path d="M125 151l15-12 11 7 24-27" fill="none" stroke="#70e0d1" stroke-width="4"/><circle cx="175" cy="119" r="4" fill="#70e0d1"/><rect x="84" y="186" width="150" height="17" fill="#855635" stroke="#c79555"/><rect x="100" y="201" width="12" height="12" fill="#342b2c"/><rect x="205" y="201" width="12" height="12" fill="#342b2c"/></g>
-    <!-- Server room --> <g class="room-hit" data-room="server" tabindex="0" role="button" aria-label="Open system status"><rect x="753" y="33" width="222" height="205" fill="#172c39" stroke="#e3b864" stroke-width="5"/><rect x="763" y="43" width="202" height="185" fill="#102338" stroke="#5d8290" stroke-width="2"/><text x="864" y="65" text-anchor="middle" class="room-label">SERVER ROOM</text>${[0,1,2,3].map(i=>`<g transform="translate(${778+i*44} 81)"><rect width="36" height="125" rx="2" fill="#202e3b" stroke="#6e8791" stroke-width="2"/><rect x="4" y="7" width="28" height="19" fill="#132d42"/><path d="M7 14H23M7 19H18" stroke="#53b7d0" stroke-width="2"/><rect x="5" y="34" width="26" height="4" fill="#344756"/><circle cx="29" cy="15" r="2" fill="#71de89"/><circle cx="29" cy="43" r="2" fill="#49b9ff"/><path d="M5 57H31M5 69H31M5 81H31M5 93H31M5 105H31" stroke="#425664" stroke-width="3"/></g>`).join('')}<text x="864" y="220" text-anchor="middle" class="zone-sub">API · DATABASE · AGENT JOBS</text></g>
-    <!-- Room separators and hallway --> <path d="M18 250H982" stroke="#c4a365" stroke-width="13"/><path d="M18 257H982" stroke="#f1d391" stroke-width="3" opacity=".65"/><path d="M18 475H270M270 475V687" stroke="#c4a365" stroke-width="10"/><path d="M22 480H264M275 481V684" stroke="#f2d18b" stroke-width="2" opacity=".6"/>
-    <!-- CEO desk --> <rect x="38" y="284" width="186" height="116" rx="5" fill="#162d38" stroke="#b99a65" stroke-width="3"/><text x="131" y="305" text-anchor="middle" class="room-label">CEO OFFICE</text>${plant(56,367,.8)}<rect x="91" y="330" width="99" height="25" fill="#96603b" stroke="#d39b5c" stroke-width="3"/><rect x="115" y="309" width="39" height="23" fill="#14202a" stroke="#9fb2ac" stroke-width="2"/><rect x="119" y="313" width="31" height="14" fill="#17516a"/><text x="140" y="348" class="zone-sub">YOU · CEO</text><rect x="113" y="359" width="53" height="12" rx="5" fill="#687881"/><rect x="127" y="370" width="24" height="17" fill="#364d59"/>
-    <!-- Break room --> <g class="room-hit" data-room="break" tabindex="0" role="button" aria-label="View team availability"><rect x="27" y="500" width="230" height="165" fill="#253840" stroke="#bb9a61" stroke-width="3"/><text x="142" y="522" text-anchor="middle" class="room-label">BREAK ROOM</text><rect x="47" y="536" width="39" height="85" fill="#1b2c36" stroke="#e1bd72" stroke-width="3"/><path d="M54 552h25M54 561h25" stroke="#75c9ef" stroke-width="3"/><text x="66" y="584" text-anchor="middle" class="zone-sub">COFFEE</text><rect x="102" y="577" width="94" height="13" rx="4" fill="#a66c3e"/><rect x="111" y="589" width="8" height="20" fill="#493931"/><rect x="179" y="589" width="8" height="20" fill="#493931"/><circle cx="112" cy="572" r="7" fill="#b8a37e"/><circle cx="184" cy="572" r="7" fill="#b8a37e"/><rect x="212" y="546" width="25" height="71" fill="#425360" stroke="#a7b9b8" stroke-width="2"/><rect x="217" y="553" width="15" height="5" fill="#f1ca68"/><text x="224" y="632" text-anchor="middle" class="zone-sub">FRIDGE</text></g>
-    <!-- Task board --> <g class="room-hit" data-room="tasks" tabindex="0" role="button" aria-label="Open task board"><rect x="276" y="275" width="92" height="143" fill="#163248" stroke="#c49a5d" stroke-width="4"/><text x="322" y="293" text-anchor="middle" class="room-label">TASK BOARD</text><path d="M288 303H357" stroke="#81a4b7"/><text x="288" y="317" class="zone-sub">IDEAS → TASKS</text>${['#efc85f','#6bd0e8','#84d28b','#d68cc9','#ef9963','#79a9ed'].map((c,i)=>`<rect x="${289+(i%3)*22}" y="${328+Math.floor(i/3)*27}" width="17" height="20" rx="1" fill="${c}" stroke="#ecf1d4" stroke-width="1"/>`).join('')}<path d="M322 418v18M301 436h42" stroke="#d0aa6f" stroke-width="4"/></g>
-    <!-- Walk paths / rugs --> <rect x="393" y="272" width="555" height="415" fill="#344548" opacity=".18"/><path d="M393 257V685M580 257V685M773 257V685" stroke="#debd7c" stroke-width="2" opacity=".28" stroke-dasharray="5 8"/>
-    <!-- Workstation rugs --> ${[[350,300],[550,300],[750,300],[350,475],[550,475],[750,475],[350,625],[550,625],[750,625]].map(([x,y],i)=>`<rect x="${x-54}" y="${y-53}" width="108" height="137" rx="4" fill="${i%2?'#435153':'#3a4a4d'}" stroke="#6d7569" stroke-width="2" opacity=".78"/>`).join('')}
-    <!-- Decor and plants --> ${plant(274,229,.72)}${plant(716,228,.76)}${plant(947,264,.85)}${plant(248,450,.7)}${plant(974,452,.75)}${plant(278,677,.74)}${plant(962,675,.8)}<rect x="909" y="275" width="52" height="39" fill="#e4d4ac" stroke="#8f6b43" stroke-width="4"/><rect x="915" y="281" width="40" height="27" fill="#91b5c5"/><path d="M919 303l10-12 8 9 6-7 8 10" fill="#6a9870"/><text x="935" y="327" text-anchor="middle" class="zone-sub">KEEP BUILDING</text>
-    <!-- Overhead warm lamps --> ${[65,270,500,735,930].map((x,i)=>`<rect x="${x}" y="${i%2?245:260}" width="22" height="4" fill="#ffdb82"/><ellipse cx="${x+11}" cy="${i%2?247:262}" rx="30" ry="9" fill="#ffc956" opacity=".12" filter="url(#warmGlow)"/>`).join('')}
-    ${positions}
-    <rect x="18" y="18" width="964" height="669" fill="none" stroke="#d3b675" stroke-width="5" pointer-events="none"/></svg>`;
-  $('#officeMap').querySelectorAll('[data-employee]').forEach(g=>{g.addEventListener('click',()=>openEmployee(g.dataset.employee));g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openEmployee(g.dataset.employee);}})});
-  $('#officeMap').querySelectorAll('[data-room]').forEach(el=>{const open=()=>el.dataset.room==='meeting'?openCollection('Meetings'):showDialog(`<span class="eyebrow">SERVER ROOM</span><h2 style="font:700 19px Manrope">System status</h2><p style="color:#bfd0da;font-size:11px;line-height:1.6">API connection: ${$('#companyState').classList.contains('connected')?'connected':'unavailable'}<br>Database: SQLite workspace<br>Configured employees: ${state.employees.length}<br>Projects: ${state.projects.length}<br>Tracked AI usage: not available</p>`);el.addEventListener('click',open);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}})});
+  const employees=state.employees||[];
+  const positions=employees.map(e=>spriteAt(e,...(palette(e).pos||[500,400]))).join('');
+  const city=Array.from({length:14},(_,i)=>{
+    const x=286+i*48,h=34+(i*31)%82;
+    return `<g><rect x="${x}" y="${158-h}" width="38" height="${h}" fill="${i%2?'#193b58':'#244b68'}"/>
+      <g fill="#9ed7df" opacity=".7">${[0,1,2,3].map(r=>`<rect x="${x+6}" y="${165-h+r*15}" width="5" height="4"/><rect x="${x+18}" y="${165-h+r*15}" width="5" height="4"/><rect x="${x+30}" y="${165-h+r*15}" width="4" height="4"/>`).join('')}</g></g>`;
+  }).join('');
+  const notes=['#f1ca63','#6fd4e7','#82d491','#dc8bc6','#f39b6f','#78a9ed','#f0d47c','#69cdbd'].map((c,i)=>`<g><rect x="${655+(i%4)*29}" y="${356+Math.floor(i/4)*39}" width="21" height="28" rx="2" fill="${c}" stroke="#fff1bd"/><path d="M${659+(i%4)*29} ${365+Math.floor(i/4)*39}h13M${659+(i%4)*29} ${371+Math.floor(i/4)*39}h9M${659+(i%4)*29} ${377+Math.floor(i/4)*39}h12" stroke="#354650" stroke-width="2"/></g>`).join('');
+  const desk=employees.map((e,i)=>{
+    const p=palette(e), pos=p.pos||[500,400], status=statusLabel(e);
+    const [x,y]=pos;
+    return `<g class="station-zone" opacity=".96">
+      <rect x="${x-58}" y="${y-15}" width="116" height="150" rx="6" fill="#3b4b4c" stroke="#6d7b75" stroke-width="2"/>
+      <rect x="${x-53}" y="${y+39}" width="106" height="3" fill="${p.accent}" opacity=".22"/>
+      <rect x="${x-50}" y="${y+6}" width="100" height="6" fill="#6f5038" opacity=".7"/>
+      <circle cx="${x-43}" cy="${y+51}" r="3" fill="${status==='Working'?'#61d8ff':status==='Blocked'?'#ff8178':'#5ed987'}"/>
+      <rect x="${x+27}" y="${y+51}" width="16" height="12" rx="2" fill="#152938" stroke="${p.accent}" opacity=".85"/>
+      <path d="M${x+30} ${y+55}h10M${x+30} ${y+59}h7" stroke="${p.accent}" stroke-width="1"/>
+    </g>`;
+  }).join('');
+  $('#officeMap').innerHTML=`<svg class="office-svg" viewBox="0 0 1000 700" preserveAspectRatio="none" role="img" aria-label="Detailed Om AI Company pixel-art office">
+  <defs>
+    <pattern id="floorTile" width="36" height="28" patternUnits="userSpaceOnUse"><rect width="36" height="28" fill="#3b4a4a"/><path d="M0 0H36M0 0V28" stroke="#56635e" opacity=".55"/><path d="M2 25H34" stroke="#293b40" opacity=".7"/></pattern>
+    <linearGradient id="windowSky" x2="0" y2="1"><stop stop-color="#11263e"/><stop offset=".55" stop-color="#35647f"/><stop offset="1" stop-color="#718c93"/></linearGradient>
+    <linearGradient id="warm" x2="0" y2="1"><stop stop-color="#ffd56c" stop-opacity=".26"/><stop offset="1" stop-color="#ffd56c" stop-opacity="0"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#07131f" flood-opacity=".65"/></filter>
+  </defs>
+  <rect width="1000" height="700" fill="url(#floorTile)"/>
+  <rect x="13" y="13" width="974" height="674" rx="7" fill="none" stroke="#d8b56c" stroke-width="7"/>
+  <rect x="21" y="21" width="958" height="658" rx="4" fill="none" stroke="#716e5b" stroke-width="2"/>
+
+  <g filter="url(#shadow)">
+    <rect x="273" y="25" width="452" height="142" rx="4" fill="#152b39" stroke="#d9b36a" stroke-width="6"/>
+    <rect x="284" y="37" width="430" height="117" fill="url(#windowSky)"/>
+    ${city}
+    <rect x="284" y="37" width="430" height="117" fill="url(#warm)"/>
+    ${Array.from({length:7},(_,i)=>`<rect x="${286+i*71}" y="37" width="3" height="117" fill="#d8bd7b" opacity=".8"/>`).join('')}
+    <rect x="284" y="154" width="430" height="6" fill="#e3c579"/>
+  </g>
+
+  <g class="room-hit" data-room="meeting" tabindex="0" role="button">
+    <rect x="25" y="28" width="225" height="204" rx="5" fill="#283c43" stroke="#dfb970" stroke-width="5"/>
+    <rect x="37" y="41" width="201" height="176" fill="#203743" stroke="#8aa0a4" stroke-width="3"/>
+    <text x="137" y="62" text-anchor="middle" class="room-label">MEETING ROOM</text>
+    <rect x="68" y="77" width="139" height="73" fill="#102536" stroke="#d7af67" stroke-width="4"/>
+    <rect x="75" y="84" width="125" height="59" fill="#195b7e"/>
+    <text x="137" y="105" text-anchor="middle" class="zone-sub">TEAMWORK BUILDS</text><text x="137" y="119" text-anchor="middle" class="zone-sub">THE FUTURE</text>
+    <path d="M99 137l17-13 11 8 21-24" fill="none" stroke="#6ce1d4" stroke-width="3"/>
+    <rect x="77" y="172" width="120" height="17" rx="3" fill="#96603a" stroke="#d19a57"/>
+    <circle cx="91" cy="197" r="7" fill="#4d3b39"/><circle cx="185" cy="197" r="7" fill="#4d3b39"/><circle cx="106" cy="197" r="7" fill="#4d3b39"/><circle cx="170" cy="197" r="7" fill="#4d3b39"/>
+  </g>
+
+  <g class="room-hit" data-room="company" tabindex="0" role="button">
+    <rect x="34" y="248" width="207" height="128" rx="6" fill="#152e3b" stroke="#cba767" stroke-width="4"/>
+    <text x="137" y="272" text-anchor="middle" class="room-label">CEO OFFICE</text>
+    <rect x="91" y="298" width="94" height="25" rx="2" fill="#9b6037" stroke="#d9a15b" stroke-width="3"/>
+    <rect x="117" y="276" width="44" height="22" fill="#12222e" stroke="#9eb2af" stroke-width="2"/><rect x="122" y="281" width="34" height="12" fill="#18536b"/>
+    <text x="137" y="318" text-anchor="middle" class="zone-sub">YOU · CEO</text>
+    <rect x="117" y="330" width="41" height="11" rx="4" fill="#6d7e82"/><rect x="127" y="341" width="22" height="19" fill="#3a4b53"/>
+    ${plant(57,358,.72)}
+  </g>
+
+  <g class="room-hit" data-room="break" tabindex="0" role="button">
+    <rect x="25" y="505" width="225" height="159" rx="5" fill="#263d40" stroke="#c4a365" stroke-width="4"/>
+    <text x="137" y="529" text-anchor="middle" class="room-label">BREAK ROOM</text>
+    <rect x="47" y="548" width="40" height="75" fill="#132b37" stroke="#dfbc70" stroke-width="3"/><path d="M54 562h26M54 571h26" stroke="#69cfee" stroke-width="3"/><text x="67" y="596" text-anchor="middle" class="zone-sub">COFFEE</text>
+    <rect x="108" y="583" width="83" height="13" rx="4" fill="#a66a3d"/><circle cx="119" cy="578" r="7" fill="#c0a87f"/><circle cx="180" cy="578" r="7" fill="#c0a87f"/><rect x="119" y="596" width="7" height="20" fill="#4b362e"/><rect x="175" y="596" width="7" height="20" fill="#4b362e"/>
+    <rect x="204" y="551" width="27" height="72" fill="#4a5a60" stroke="#aebdbb" stroke-width="2"/><text x="217" y="638" text-anchor="middle" class="zone-sub">FRIDGE</text>${plant(225,546,.55)}
+  </g>
+
+  <g class="room-hit" data-room="server" tabindex="0" role="button">
+    <rect x="750" y="27" width="225" height="205" rx="5" fill="#142a38" stroke="#d7af65" stroke-width="5"/>
+    <rect x="761" y="42" width="203" height="176" fill="#0c2030" stroke="#587a87" stroke-width="2"/>
+    <text x="862" y="63" text-anchor="middle" class="room-label">SERVER ROOM</text>
+    ${[0,1,2,3].map(i=>`<g><rect x="${775+i*46}" y="79" width="37" height="119" rx="2" fill="#202f3b" stroke="#6b858d" stroke-width="2"/><rect x="${779+i*46}" y="86" width="29" height="18" fill="#132d41"/><path d="M782 ${93}h20M782 ${98}h13" stroke="#4fc9e8" stroke-width="2"/><circle class="server-led" cx="${804+i*46}" cy="94" r="2" fill="#64df8b"/><circle class="server-led" cx="${804+i*46}" cy="113" r="2" fill="#62cfff"/><path d="M781 ${131}h25M781 ${145}h25M781 ${159}h25M781 ${173}h25M781 ${187}h25" stroke="#435764" stroke-width="3"/></g>`).join('')}
+    <text x="862" y="211" text-anchor="middle" class="zone-sub">API · DATABASE · AGENT JOBS</text>
+  </g>
+
+  <path d="M268 246H981M268 246V680M268 680H981" stroke="#d1ae6e" stroke-width="8"/>
+  <path d="M272 253H977" stroke="#f2d28c" stroke-width="2"/>
+  <path d="M272 340H977M272 510H977M610 253V680M797 253V510" stroke="#77827d" stroke-width="1" opacity=".2"/>
+  ${desk}
+  ${plant(272,250,.55)}${plant(615,250,.65)}${plant(796,250,.6)}${plant(974,472,.65)}${plant(268,478,.55)}${plant(611,674,.6)}
+
+  <g class="room-hit" data-room="tasks" tabindex="0" role="button">
+    <rect x="625" y="285" width="170" height="127" rx="5" fill="#17374a" stroke="#d0a55f" stroke-width="4"/>
+    <text x="710" y="307" text-anchor="middle" class="room-label">TASK BOARD</text><text x="710" y="324" text-anchor="middle" class="zone-sub">IDEAS → TASKS → IMPACT</text>
+    ${notes}
+  </g>
+
+  <g class="room-hit" data-room="lounge" tabindex="0" role="button">
+    <rect x="800" y="505" width="175" height="158" rx="5" fill="#2b3d40" stroke="#c6a265" stroke-width="4"/>
+    <text x="887" y="529" text-anchor="middle" class="room-label">LOUNGE</text>
+    <rect x="826" y="563" width="120" height="45" rx="8" fill="#314b5c" stroke="#77858c" stroke-width="2"/><rect x="844" y="549" width="84" height="20" rx="7" fill="#3e5867"/>
+    <rect x="858" y="616" width="56" height="10" rx="3" fill="#a56b3e"/><circle cx="886" cy="611" r="8" fill="#c0ac86"/>
+    ${plant(957,548,.55)}
+  </g>
+
+  <g class="room-hit" data-room="printer" tabindex="0" role="button">
+    <rect x="773" y="440" width="68" height="68" rx="4" fill="#182b37" stroke="#c5a264" stroke-width="3"/>
+    <rect x="784" y="452" width="44" height="25" fill="#d5d9d1" stroke="#5d6e72" stroke-width="2"/><rect x="789" y="477" width="34" height="16" fill="#8d9a9d"/><rect x="793" y="441" width="26" height="11" fill="#f2efe3"/><circle cx="815" cy="463" r="3" fill="#6be38b"/>
+    <text x="807" y="525" text-anchor="middle" class="zone-sub">PRINTER</text>
+  </g>
+
+  <g pointer-events="none">
+    <rect x="846" y="350" width="96" height="67" fill="#e7d8b0" stroke="#8b6841" stroke-width="4"/><rect x="855" y="359" width="78" height="48" fill="#9fc1cc"/><path d="M858 397l20-24 14 16 12-11 24 20" fill="#71986f"/><text x="894" y="428" text-anchor="middle" class="zone-sub">KEEP BUILDING</text>
+    <text x="84" y="641" class="wall-script">Build</text><text x="84" y="654" class="wall-script">Automate</text><text x="84" y="667" class="wall-script">Create</text><text x="84" y="680" class="wall-script">Grow</text>
+  </g>
+
+  ${positions}
+  <rect x="18" y="18" width="964" height="664" fill="none" stroke="#e2c27a" stroke-width="3" pointer-events="none"/>
+  </svg>`;
+  $('#officeMap').querySelectorAll('[data-employee]').forEach(g=>{
+    g.addEventListener('click',()=>openEmployee(g.dataset.employee));
+    g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openEmployee(g.dataset.employee)}});
+  });
+  $('#officeMap').querySelectorAll('[data-room]').forEach(el=>{
+    el.addEventListener('click',()=>roomAction(el.dataset.room));
+    el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();roomAction(el.dataset.room)}});
+  });
 }
 function drawEmployeeCards(){
   $('#employeeCards').innerHTML=state.employees.map(e=>{const status=statusLabel(e),t=assignedTask(e), activity=t?((t.status==='IN_PROGRESS'?'Working: ':t.status==='BLOCKED'?'Blocked: ':'Next: ')+t.title):'No active task';return `<button class="employee-card" data-employee-card="${esc(e.id)}"><span class="avatar-wrap">${avatarSvg(e)}</span><span class="employee-meta"><b>${esc(e.name)}</b><small>${esc(e.role)}</small></span><span class="employee-activity"><i class="employee-dot ${status.toLowerCase()}"></i>${esc(activity)}</span></button>`}).join('');
