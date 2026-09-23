@@ -33,7 +33,7 @@ Submitting a CEO command persists a project, seven assigned tasks, and a CEO Ass
 - `POST /api/reports/daily` (writes and registers a Markdown artifact using current database records)
 - `GET /workspace/{artifact filename}` returns the artifact content
 
-The frontend refreshes persisted state every three seconds. WebSocket/SSE streaming is not included in this increment.
+The frontend refreshes persisted state every three seconds. The frontend consumes the backend's Server-Sent Events activity stream and also refreshes persisted state periodically. WebSocket is not required for the current local architecture.
 
 ## Extension points
 
@@ -41,4 +41,4 @@ Employees and their instructions are seeded in `backend/app.py`. Task planning i
 
 ## Current scope
 
-This implementation establishes a real persistent foundation, rather than implementing every requested enterprise feature in a single pass. Approval workflows, restricted code execution, data uploads/analysis, git tools, retries/reassignment, detailed project/task pages, auth, budgets, migrations, and automated test suites remain future work. The local server binds to loopback and does not provide production authentication or deployment controls.
+This implementation establishes a real persistent foundation, rather than implementing every requested enterprise feature in a single pass. Approval workflows, restricted code execution, data uploads/analysis, git tools, retries/reassignment, detailed project/task pages, auth, budgets, and migrations remain future work. The current repository includes automated backend tests for the persisted company flow. The local server binds to loopback and does not provide production authentication or deployment controls.
